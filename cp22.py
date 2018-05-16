@@ -15,7 +15,12 @@ headers = {
 r = requests.post(url, headers=headers, data=data)
 
 value = []
+flag = False
 for item in r.json()['ticketTypeList']:
     value.append(item['ticketTypeName'] + str(item['remainCount']))
+    print(value)
+    if item['ticketTypeName'] == 'D1-CP22普通票' and item['remainCount'] > 0:
+        flag = True
 
-status = send_mail('\n'.join(value), '1101022351@qq.com')
+if flag:
+    status = send_mail('\n'.join(value), '1101022351@qq.com')
